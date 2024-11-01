@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # custom config
-DATA=/data0/dataset
+DATA=../Tip-Adapter/data
 TRAINER=TaskRes
 SHOTS=16
 NCTX=16
@@ -14,9 +14,9 @@ CFG=$2
 OUTDIR=$3
 MODELDIR=$4
 
-for SEED in 1 2 3
+for SEED in 1
 do
-    CUDA_VISIBLE_DEVICES=3 python train.py \
+    CUDA_VISIBLE_DEVICES=0 python train.py \
     --root ${DATA} \
     --seed ${SEED} \
     --trainer ${TRAINER} \

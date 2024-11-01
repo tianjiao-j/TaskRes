@@ -93,6 +93,7 @@ class TaskResLearner(nn.Module):
         super().__init__()
         self.device = clip_model.dtype
         self.alpha = cfg.TRAINER.TaskRes.RESIDUAL_SCALE
+        self.alpha = 0.5
         print(">> DCT scale factor: ", self.alpha)
         self.register_buffer("base_text_features", base_text_features)
         self.text_feature_residuals = nn.Parameter(torch.zeros_like(base_text_features))

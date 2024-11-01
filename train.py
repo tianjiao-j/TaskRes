@@ -128,6 +128,16 @@ def setup_cfg(args):
 
 
 def main(args):
+    args.root = '/home/tianjiao/PycharmProjects/Tip-Adapter/data'
+    args.seed = 1
+    args.trainer = 'TaskRes'
+    args.dataset_config_file = '/home/tianjiao/PycharmProjects/TaskRes/configs/datasets/imagenet_a.yaml'
+    args.config_file = '/home/tianjiao/PycharmProjects/TaskRes/configs/trainers/TaskRes/generalization_rn50.yaml'
+    args.outputs_dir = '/home/tianjiao/PycharmProjects/TaskRes/eval_outputs/seed{}'.format(args.seed)
+    args.model_dir = '/home/tianjiao/PycharmProjects/TaskRes/output/FINAL/debug/imagenet/adam_lr2e-4_B256_ep200_16shots/seed{}'.format(args.seed)
+    args.load_epoch = 200
+    args.eval_only = True
+
     cfg = setup_cfg(args)
     if cfg.SEED >= 0:
         print("Setting fixed seed: {}".format(cfg.SEED))
@@ -138,8 +148,8 @@ def main(args):
         torch.backends.cudnn.benchmark = True
 
     print_args(args, cfg)
-    print("Collecting env info ...")
-    print("** System info **\n{}\n".format(collect_env_info()))
+    # print("Collecting env info ...")
+    # print("** System info **\n{}\n".format(collect_env_info()))
 
     trainer = build_trainer(cfg)
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # custom config
-DATA=/data0/dataset
+DATA=../Tip-Adapter/data
 # DATA=/path/to/datasets
 TRAINER=TaskRes
 
@@ -17,7 +17,7 @@ do
     if [ -d "$DIR" ]; then
         echo "Oops! The results exist at ${DIR} (so skip this job)"
     else
-        CUDA_VISIBLE_DEVICES=3 python train.py \
+        CUDA_VISIBLE_DEVICES=0 python train.py \
         --root ${DATA} \
         --seed ${SEED} \
         --trainer ${TRAINER} \
