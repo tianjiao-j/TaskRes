@@ -26,6 +26,9 @@ import datasets.imagenet_r
 import trainers.taskres
 import trainers.zsclip
 
+from utils.utils import *
+from datasets.imagenet import imagenet_templates
+
 
 def print_args(args, cfg):
     print("***************")
@@ -131,7 +134,7 @@ def main(args):
     args.root = '/home/tianjiao/PycharmProjects/Tip-Adapter/data'
     args.seed = 1
     args.trainer = 'TaskRes'
-    args.dataset_config_file = '/home/tianjiao/PycharmProjects/TaskRes/configs/datasets/imagenet_a.yaml'
+    args.dataset_config_file = '/home/tianjiao/PycharmProjects/TaskRes/configs/datasets/imagenet_sketch.yaml'
     args.config_file = '/home/tianjiao/PycharmProjects/TaskRes/configs/trainers/TaskRes/generalization_rn50.yaml'
     args.outputs_dir = '/home/tianjiao/PycharmProjects/TaskRes/eval_outputs/seed{}'.format(args.seed)
     args.model_dir = '/home/tianjiao/PycharmProjects/TaskRes/output/FINAL/debug/imagenet/adam_lr2e-4_B256_ep200_16shots/seed{}'.format(args.seed)
@@ -152,6 +155,19 @@ def main(args):
     # print("** System info **\n{}\n".format(collect_env_info()))
 
     trainer = build_trainer(cfg)
+
+    clip_model, preprocess = clip.load('RN50', device='cuda')
+    clip_model.eval()
+    test_features, test_labels = pre_load_features(None, 'test', clip_model, trainer.dm.test_loader)
+    test_features = test_features.cuda()
+
+    clip_weights = clip_classifier(trainer.dm.dataset.classnames, imagenet_templates, clip_model).cuda()
+    test_features = test_features.to(torch.float32)
+    clip_weights = clip_weights.to(torch.float32)
+    clip_logits = temperature * test_features @ clip_weights
+    acc = cls_acc(clip_logits, test_labels)
+    # print("**** Dataset: {}, Zero-shot CLIP's test accuracy: {:.2f}. ****".format(dataset_name, acc))  # 53.26.
+    # f.write("**** Dataset: {}, Zero-shot CLIP's test accuracy: {:.2f}. ****".format(dataset_name, acc) + '\n')
 
     if args.eval_only:
         trainer.load_model(args.model_dir, epoch=args.load_epoch)
