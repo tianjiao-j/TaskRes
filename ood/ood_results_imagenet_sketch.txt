@@ -1,0 +1,5 @@
+**** Dataset: imagenet_sketch, Zero-shot CLIP's test accuracy: 35.46. ****
+**** Dataset: imagenet_sketch, Training-free TIP-Adapter's test accuracy: 35.71. ****
+**** Dataset: imagenet_sketch, Training-free TIP-Adapter + ICA test accuracy: 36.60. ****
+**** Dataset: imagenet_sketch, TIP-Adapter-F's test accuracy: 34.99. ****
+**** Dataset: imagenet_sketch, TIP-Adapter-F + ICA + ZS-FT test accuracy: 35.87. ****

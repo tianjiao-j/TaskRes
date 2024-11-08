@@ -1,0 +1,5 @@
+**** Dataset: imagenetv2, Zero-shot CLIP's test accuracy: 53.31. ****
+**** Dataset: imagenetv2, Training-free TIP-Adapter's test accuracy: 54.36. ****
+**** Dataset: imagenetv2, Training-free TIP-Adapter + ICA test accuracy: 55.39. ****
+**** Dataset: imagenetv2, TIP-Adapter-F's test accuracy: 56.85. ****
+**** Dataset: imagenetv2, TIP-Adapter-F + ICA + ZS-FT test accuracy: 57.32. ****
