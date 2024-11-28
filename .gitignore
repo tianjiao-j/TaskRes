@@ -2,3 +2,4 @@
 eval_outputs/
 output/
 strong_base/
+*.pyc
