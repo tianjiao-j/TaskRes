@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # custom config
-DATA=/data0/dataset
+DATA=../Tip-Adapter/data
 # DATA=/path/to/datasets
 TRAINER=TaskRes
 
